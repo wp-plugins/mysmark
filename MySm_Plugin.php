@@ -143,7 +143,7 @@
 						$mysmID = $this->MySmPOST($post->ID, $post->post_title, $post->guid, !empty($singlevote));
 						add_option("MySmPostID".$post->ID, $mysmID);
 					}
-					$content .= '<br/><br/><iframe id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1" height="340" width="320"></iframe>';
+					$content .= '<br/><br/><iframe id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1" height="850" width="370"></iframe>';
 				}
 				catch (MySmarkException $e)
 				{
