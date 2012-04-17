@@ -3,7 +3,7 @@ Tags: mysmark, emotional, feedback, comment
 Contributors: m1rcu2
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 This is a WordPress plugin which allows users to comment and to give emotional 
 feedbacks about your posts through MySmark services.
@@ -37,6 +37,9 @@ Take a look at this website [MySmark](https://www.mysmark.com/ "MySmark")
 == Screenshots ==
 
 == Changelog ==
+
+= 1.0.2 =
+* Fixed the URL to mysmark.com instead of localhost for OAuth credentials.
 
 = 1.0.1 =
 * Fixed the path to CP pages.

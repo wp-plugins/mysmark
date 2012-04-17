@@ -3,8 +3,7 @@
 include_once 'OAuth2Exception.php';
 include_once 'OAuth2Client.php';
 
-$websrc = "http://localhost/";
-//$websrc = "https://www.mysmark.com/";
+$websrc = "https://www.mysmark.com/";
 
 class MysmSDK extends OAuth2Client {
 
