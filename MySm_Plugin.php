@@ -3,7 +3,7 @@
 	Plugin Name: MySmark
 	Plugin URI: http://mysmark.com
 	Description: A MySmark Plug-In for WordPress CMS
-	Version: 0.5
+	Version: 1.0.1
 	Author: M1rcu2
 	Author URI: http://b-smark.com/mirco
 	License: GPL2
@@ -55,10 +55,10 @@
 		
 		function CreateMenu()
 		{
-			add_menu_page('MySmark Plugin', 'MySmark CP', 'administrator', '/MySmark/MySm_AdminPage.php');
+			add_menu_page('MySmark Plugin', 'MySmark CP', 'administrator', 'mysmark/MySm_AdminPage.php');
 			//to avoid duplicated links
-			add_submenu_page('/MySmark/MySm_AdminPage.php', 'MySmark Control Panel', 'Control Panel', 'administrator', '/MySmark/MySm_AdminPage.php');
-			add_submenu_page('/MySmark/MySm_AdminPage.php', 'MySmark Control Panel - Unlink posts', 'Unlink Posts', 'administrator', '/MySmark/MySm_LinkPage.php');
+			add_submenu_page('mysmark/MySm_AdminPage.php', 'MySmark Control Panel', 'Control Panel', 'administrator', 'mysmark/MySm_AdminPage.php');
+			add_submenu_page('mysmark/MySm_AdminPage.php', 'MySmark Control Panel - Unlink posts', 'Unlink Posts', 'administrator', 'mysmark/MySm_LinkPage.php');
 			add_action( 'admin_init', array(&$this, 'RegisterSettings'));
 		}
 		
@@ -85,8 +85,8 @@
 		function MySmWarning()
 		{
 			if (!get_option('mysm-oauth-cli') || !get_option('mysm-oauth-secr'))
-				echo "<div id='mysm-warning' class='updated fade'><p><strong>".__('WARNING: ')."</strong> ".sprintf(__('You must <a href="%1$s">enter your MySmark API key</a> for it to work.'), "admin.php?page=MySmark/MySm_AdminPage.php")."</p></div>";
-		}	
+				echo "<div id='mysm-warning' class='updated fade'><p><strong>".__('WARNING: ')."</strong> ".sprintf(__('You must <a href="%1$s">enter your MySmark API key</a> for it to work.'), "admin.php?page=mysmark/MySm_AdminPage.php")."</p></div>";
+		}
 		
 		//Not yet needed
 		function OnActivate()
