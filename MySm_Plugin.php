@@ -66,10 +66,12 @@
 		{
 			register_setting( 'mysm-settings-group', 'mysm-oauth-cli' );
 			register_setting( 'mysm-settings-group', 'mysm-oauth-secr' );
+			register_setting( 'mysm-settings-group', 'mysm-orientation' );
+			register_setting( 'mysm-settings-group', 'mysm-width' );
 //			register_setting( 'mysm-settings-group', 'mysm-template' );
 //			register_setting( 'mysm-settings-group', 'mysm-multimedia' );
 //			register_setting( 'mysm-settings-group', 'mysm-share' );
-			register_setting( 'mysm-settings-group', 'mysm-singlevote' );
+//			register_setting( 'mysm-settings-group', 'mysm-singlevote' );
 			register_setting( 'mysm-settings-group2', 'mysm-reset' );
 		}
 		
@@ -93,7 +95,7 @@
 		{
 		}
 		
-		function MySmPOST($ID, $title, $url, $singleVote = true, $protected = false, $descr = 'WP-post', $category = 'WordPressSmark')
+		function MySmPOST($ID, $title, $url, $singleVote = false, $protected = false, $descr = 'WP-post', $category = 'WordPressSmark')
 		{
 			$client_id = get_option('mysm-oauth-cli');
 			$client_secret = get_option('mysm-oauth-secr');
@@ -143,7 +145,41 @@
 						$mysmID = $this->MySmPOST($post->ID, $post->post_title, $post->guid, !empty($singlevote));
 						add_option("MySmPostID".$post->ID, $mysmID);
 					}
-					$content .= '<br/><br/><iframe id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1" height="850" width="370"></iframe>';
+					$orientation = 'pos=b';
+					$width = '230';
+					$height = '660';
+					
+					switch (get_option('mysm-orientation'))
+					{
+						case 0:
+							{
+								$orientation = 'pos=l';
+								if (get_option('mysm-width'))
+									$width = get_option('mysm-width');
+								else
+									$width = 400;
+								$height = '330';
+								break;
+							}
+						case 2:
+							{
+								$orientation = 'pos=r';
+								if (get_option('mysm-width'))
+									$width = get_option('mysm-width');
+								else
+									$width = 400;
+								$height = '330';
+								break;
+							}
+						default:
+							{
+								$orientation = 'pos=b';
+								$height = '660';
+								break;
+							}
+					}		
+					
+					$content .= '<br/><br/><iframe id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1&wh='.$width.'&'.$orientation.'" height="'.($height+10).'" width="'.($width+5).'"></iframe>';
 				}
 				catch (MySmarkException $e)
 				{
