@@ -85,7 +85,7 @@
 		function MySmWarning()
 		{
 			if (!get_option('mysm-oauth-cli') || !get_option('mysm-oauth-secr'))
-				echo "<div id='mysm-warning' class='updated fade'><p><strong>".__('WARNING: ')."</strong> ".sprintf(__('You must <a href="%1$s">enter your MySmark API key</a> for it to work.'), "admin.php?page=mysmark/MySm_AdminPage.php")."</p></div>";
+				echo "<div id='mysm-warning' class='updated fade'><p><strong>".__('WARNING: ')."</strong> ".sprintf(__('You must <a href="%1$s">enter your MySmark API key</a>.'), "admin.php?page=mysmark/MySm_AdminPage.php")."</p></div>";
 		}
 		
 		//Not yet needed
