@@ -39,7 +39,15 @@ Take a look at this website [MySmark](https://www.mysmark.com/ "MySmark")
 == Changelog ==
 
 = 1.0.2 =
-* Fixed the URL to mysmark.com instead of localhost for OAuth credentials.
+* Fixed: the URL to mysmark.com instead of localhost for OAuth credentials.
+* Fixed: when unlinking posts and then revisiting posts now it will update the 
+entry already existing in the DB instead of getting error for invalid (null) ID.
+* Added: Templates in the plug-in Control Panel. Widget on top, right or left.
+* Removed (temporary): Single vote option. It prevents users to post more than 
+one comment.
+* Added: It's now possible to set the width of the comment-list( + widget) in 
+the Control Panel.
+* Minor bug-fixes.
 
 = 1.0.1 =
 * Fixed the path to CP pages.
