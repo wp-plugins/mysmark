@@ -206,7 +206,7 @@
 							}
 					}
 					$wpurl = (($_SERVER['HTTPS'] != "on") ? "http://" : "https://").$_SERVER['HTTP_HOST'];
-					$content .= '<br/><br/><iframe id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1&wh='.$width.'&pos='.$orientation.'&exturl='.$wpurl.'" height="'.($height+10).'" width="'.($width+5).'"></iframe>';
+					$content .= '<iframe id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1&wh='.$width.'&pos='.$orientation.'&exturl='.$wpurl.'" height="'.($height+10).'" width="'.($width+5).'"></iframe>';
 				}
 				catch (MySmarkException $e)
 				{
