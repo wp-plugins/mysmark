@@ -13,7 +13,7 @@
 			</tr>
 			<tr valign="top" style="text-align: center;">
 				<th scope="row">Width</th>
-				<td><input type="text" name="mysm-width" size="5" value="<?php echo ((!get_option('mysm-width')) ? 400 : get_option('mysm-width')); ?>" />px</td>
+				<td><input type="text" name="mysm-width" size="5" value="<?php echo ((!get_option('mysm-width')) ? 460 : get_option('mysm-width')); ?>" />px</td>
 			</tr>
 			<tr valign="top" style="text-align: center;">
 				<th scope="row">Template</th>

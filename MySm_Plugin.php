@@ -3,7 +3,7 @@
 	Plugin Name: MySmark
 	Plugin URI: http://mysmark.com
 	Description: A MySmark Plug-In for WordPress CMS
-	Version: 1.0.3
+	Version: 1.0.4
 	Author: M1rcu2
 	Author URI: http://b-smark.com/mirco
 	License: GPL2
@@ -174,7 +174,7 @@
 								if (get_option('mysm-width'))
 									$width = get_option('mysm-width');
 								else
-									$width = 400;
+									$width = 460;
 								$height = '330';
 								break;
 							}
@@ -194,7 +194,7 @@
 								if (get_option('mysm-width'))
 									$width = get_option('mysm-width');
 								else
-									$width = 400;
+									$width = 460;
 								$height = '330';
 								break;
 							}
@@ -206,7 +206,7 @@
 							}
 					}
 					$wpurl = (($_SERVER['HTTPS'] != "on") ? "http://" : "https://").$_SERVER['HTTP_HOST'];
-					$content .= '<iframe id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1&wh='.$width.'&pos='.$orientation.'&exturl='.$wpurl.'" height="'.($height+10).'" width="'.($width+5).'"></iframe>';
+					$content .= '<iframe frameborder="0" style="overflow-x: hidden; overflow-y: hidden;" id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1&wh='.$width.'&pos='.$orientation.'&exturl='.$wpurl.'" height="'.($height+10).'" width="'.($width+5).'"></iframe>';
 				}
 				catch (MySmarkException $e)
 				{
