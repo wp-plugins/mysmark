@@ -1,9 +1,10 @@
 === MySmark Plugin ===
-Tags: mysmark, emotional, feedback, comment
+Tags: mysmark, emotional, feedback, comment, emotion
 Contributors: m1rcu2
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 1.0.4
+Stable tag: 1.0.4.1
+License: GPLv2 or later (http://www.gnu.org/licenses/gpl-2.0.html) 
 
 This is a WordPress plugin which allows users to comment and to give emotional 
 feedbacks about your posts through MySmark services.
@@ -11,17 +12,22 @@ feedbacks about your posts through MySmark services.
 == Description ==
 
 This is a WordPress plugin which allows users to comment and to give emotional 
-feedbacks about your posts through MySmark services. [MySmark](https://www.mysmark.com/ "MySmark")
+feedbacks about your posts through [MySmark services](https://www.mysmark.com/ "MySmark"). 
+*Note*: you will need to send an email to besmark@b-smark.com to get your credentials (it's free!) .
 
 == Installation ==
 
 In order to get this plugin to work properly you need to obtain MySmark OAuth 
-credentials (necessary to use MySmark APIs). Register to mysmark.com, go to the 
-business account page and click API access, it will provide your credentials 
-(OAuth client ID and OAuth client secret). Now simply move the files from this 
-archive into YOUR_WORDPRESS_PATH/wp-content/plugins/MySmark (please pay 
-attention to capital letters) if you've downloaded the .zip package or install 
-it directly from your Wordpress page. Open your Wordpress administrator page and 
+credentials (necessary to use MySmark APIs). Register to [MySmark](https://www.mysmark.com "MySmark.com")
+and send us an email ([besmark@b-smark.com](mailto:besmark@b-smark.com "besmark@b-smark.com")) asking for your credentials. (it's free!). 
+Go to the business account page after you'll have received our reply and click API access
+it will provide your credentials (OAuth client ID and OAuth client secret).
+
+Now simply move the files from this archive into YOUR_WORDPRESS_PATH/wp-content/plugins/MySmark
+(please pay attention to capital letters) if you've downloaded the .zip package or install 
+it directly from your Wordpress page.
+
+Open your Wordpress administrator page and 
 activate the MySmark plugin. You're almost done. Go to the MySmark control panel 
 or click on the link provided by the warning in your admin pages, insert your 
 OAuth credentials you created before and that's it, your Wordpress posts are 
@@ -35,8 +41,13 @@ Happy Smarking!
 Take a look at this website [MySmark](https://www.mysmark.com/ "MySmark")
 
 == Screenshots ==
+1. The plugin: E-rose and comment list.
+2. Settings in the admin page.
 
 == Changelog ==
+
+= 1.0.4.1 =
+* Edited the README.txt file
 
 = 1.0.4 =
 * Change: Minimum width for left/right template set to 460.
@@ -61,3 +72,5 @@ the Control Panel.
 
 = 1.0 =
 * First public plugin release.
+
+== Upgrade Notice ==
