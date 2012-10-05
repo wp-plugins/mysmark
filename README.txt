@@ -3,7 +3,7 @@ Tags:  mysmark, emotion, mood, sentiment, feedback, comment, rating, feelings
 Contributors: m1rcu2
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 1.0.5
+Stable tag: 1.0.5.1
 License: GPLv2 or later (http://www.gnu.org/licenses/gpl-2.0.html) 
 
 Upgrade comments and sharing of your blog and engage your visitors with emotional tagging via MySmark.
@@ -16,17 +16,19 @@ MySmark plugin allows your visitors to make powerful comments to your content us
 
 == Installation ==
 
-1. Move the files from this archive into YOUR_WORDPRESS_PATH/wp-content/plugins/MySmark
-(please pay attention to capital letters) if you've downloaded the .zip package, or install 
-it directly from your WordPress page.
-2. **Activate** the MySmark plugin
+1. Move the files from this archive into
+		YOUR_WORDPRESS_PATH/wp-content/plugins/mysmark
+   if you've downloaded the .zip package, or install it directly from your WordPress page.
+2. **Activate** the MySmark plugin.
 2. **Sign up** with [MySmark.com](https://www.mysmark.com/ "MySmark"). It's fast, fun and free!
 3. Log in into your MySmark account and find the **Tools** tab in the top right corner of the page,
 4. Click the **API Access** link located in the left side of the page just under your username,
-5. Enter your website page address (*for example: https://www.mysmark.com/wops/*) in the **OAuth redirect URL** field and click **Create/Update**, this should generate your personal OAuth client id and OAuth client secret,
-6. In the WordPress Admin Panel locate **MySmark Plugin Control Panel**,
-7. Copy-paste your **OAuth client id** and **OAuth client secret** into the blank spaces and click save,
+5. Enter your website page address (*for example: https://www.mysmark.com/wops/*) in the **OAuth redirect URL** field and click **Create/Update**, this should generate your personal OAuth client id and OAuth client secret.
+6. In the WordPress Admin Panel locate **MySmark Plugin Control Panel**.
+7. Copy-paste your **OAuth client id** and **OAuth client secret** into the blank spaces and click save.
 8. That's it! Your WordPress posts are ready to be smarked.
+
+Or watch a movie that explains step-by-step how to install the plugin: [MySmark Wordpress Plugin Installation Instructions](http://youtu.be/YzUAhBBT8mc "MySmark Wordpress Plugin Installation Instructions")
 
 **Make your Smark now!**
 
@@ -53,6 +55,8 @@ Every user/visitor has its own widget that can be personalised in the [MySmark.c
 2. Settings in the admin page.
 
 == Changelog ==
+= 1.0.5.1 =
+* Edited the README.txt file.
 = 1.0.5 =
 * Fixed: User is able to see in the user mysmark.com account stats for every posts.
 * Edited the README.txt file.
