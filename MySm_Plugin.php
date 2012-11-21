@@ -3,7 +3,7 @@
 	Plugin Name: MySmark
 	Plugin URI: http://mysmark.com
 	Description: A MySmark Plug-In for WordPress CMS
-	Version: 1.0.6
+	Version: 1.0.6.1
 	Author: M1rcu2
 	Author URI: http://b-smark.com/mirco
 	License: GPL2
@@ -199,24 +199,22 @@
 							break;
 					}
 					
-					$out = "";
-					
 					if (strcmp($orientation, 'b') == 0) {
-						$out .= '<script type="text/javascript" src="https://www.mysmark.com/js/Embedder.js"></script>';
+						$script = '<script type="text/javascript" src="https://www.mysmark.com/js/Embedder.js"></script>';
 						$content .= '<p style="text-align:center;"><button id="MYSMARK_ID_'.$mysmID.'" class="mysmark_embed" title="Click here to share your opinion!" style="height: 48px; width: 134px; background-image: url(https://www.mysmark.com/embed-button.php?id='.$mysmID.'); background-color: transparent; border: 0px none; cursor: pointer; background-position: 0px 0px; background-repeat: no-repeat no-repeat;"></button></p>';
-						$out .= $content;
+						$content = $script . $content;
 					}
 					else {
 						$wpurl = (($_SERVER['HTTPS'] != "on") ? "http://" : "https://").$_SERVER['HTTP_HOST'];
-						$out .= $content . '<p style="text-align:center;"><iframe frameborder="0" style="overflow-x: hidden; overflow-y: hidden;" id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1&wh='.$width.'&pos='.$orientation.'&exturl='.$wpurl.'" height="'.($height+10).'" width="'.($width+5).'"></iframe></p>';
+						$content .= '<p style="text-align:center;"><iframe frameborder="0" style="overflow-x: hidden; overflow-y: hidden;" id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1&wh='.$width.'&pos='.$orientation.'&exturl='.$wpurl.'" height="'.($height+10).'" width="'.($width+5).'"></iframe></p>';
 					}
 				}
 				catch (MySmarkException $e)
 				{
-					$out .= $content . "<strong>".$e->getMessage()."</strong>";
+					$content .= "<strong>".$e->getMessage()."</strong>";
 				}
 			}
-			return $out;
+			return $content;
 		}
 		
 		function AddMySmReference($post_ID)
