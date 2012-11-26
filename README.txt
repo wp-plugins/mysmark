@@ -3,7 +3,7 @@ Tags:  mysmark, emotion, mood, sentiment, feedback, comment, rating, feelings
 Contributors: m1rcu2, giacomo-persichini
 Requires at least: 3.0
 Tested up to: 3.4.2
-Stable tag: 1.0.6.1
+Stable tag: 1.0.7
 License: GPLv2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
 
 Upgrade comments and sharing of your blog and engage your visitors with emotional tagging via MySmark.
@@ -55,6 +55,11 @@ Every user/visitor has its own widget that can be personalised in the [MySmark.c
 2. Settings in the admin page.
 
 == Changelog ==
+= 1.0.7 =
+* Added: Now it is possible to choose for each post if you want to enable the MySmark widget/button.
+* Added: screenshot-3.png to show the new meta box in the 'New/Edit Post' page.
+* Change: screenshot-1.png, screenshot-2.png, and images in the 'images' folder have been updated with the new Rose.
+
 = 1.0.6.1 =
 * Fixed: Post preview on the home page was not showing correctly.
 

@@ -3,7 +3,7 @@
 	Plugin Name: MySmark
 	Plugin URI: http://mysmark.com
 	Description: A MySmark Plug-In for WordPress CMS
-	Version: 1.0.6.1
+	Version: 1.0.7
 	Author: M1rcu2
 	Author URI: http://b-smark.com/mirco
 	License: GPL2
@@ -28,69 +28,50 @@
 
 	$mysm_plugin = new MySmark_Plugin;
 
-	// Custom exception class for future implementations.
-	class MySmarkException extends Exception
-	{
-		function __construct($msg)
-		{
-			parent::__construct('MySmarkException: '.$msg);
-		}
-	}
-
 	class MySmark_Plugin
 	{
 		// It registers the plugin actions
 		function __construct()
 		{
-			register_activation_hook( __FILE__, array(  &$this, 'OnActivate' ) );
-			register_deactivation_hook( __FILE__, array(  &$this, 'OnDeactivate' ) );
 			register_uninstall_hook(__FILE__, array(  &$this, 'OnUninstall' ));
 			add_action('admin_menu', array(&$this, 'CreateMenu'));
 			add_filter('the_content', array(&$this, 'AppendWidget'));
-			add_action('publish_post', array(&$this, 'AddMySmReference'));
 			add_action('after_delete_post', array(&$this, 'RemoveOption'));
 			add_action('admin_notices', array(&$this, 'MySmWarning'));
 			add_action('wp_enqueue_scripts', array(&$this, 'EnableJScript'));
+			add_action('add_meta_boxes', array(&$this, 'AddMetaBox'));
+			add_action('save_post', array(&$this, 'MetaBoxSave'));
 		}
-		
 		
 		function CreateMenu()
 		{
 			add_menu_page('MySmark Plugin', 'MySmark', 'administrator', 'mysmark/MySm_AdminPage.php');
-			// to avoid duplicated links
 			add_submenu_page('mysmark/MySm_AdminPage.php', 'MySmark Control Panel', 'Control Panel', 'administrator', 'mysmark/MySm_AdminPage.php');
 			add_submenu_page('mysmark/MySm_AdminPage.php', 'MySmark Control Panel - Unlink posts', 'Unlink Posts', 'administrator', 'mysmark/MySm_LinkPage.php');
-			add_action( 'admin_init', array(&$this, 'RegisterSettings'));
+			add_action('admin_init', array(&$this, 'RegisterSettings'));
 		}
 		
 		function RegisterSettings()
 		{
-			register_setting( 'mysm-settings-group', 'mysm-oauth-cli' );
-			register_setting( 'mysm-settings-group', 'mysm-oauth-secr' );
-			register_setting( 'mysm-settings-group', 'mysm-orientation' );
-			register_setting( 'mysm-settings-group', 'mysm-width' );
-//			register_setting( 'mysm-settings-group', 'mysm-singlevote' );
-			register_setting( 'mysm-settings-group2', 'mysm-reset' );
-		}
-		
-		function OnDeactivate()
-		{
-			// Nothing to do here
+			register_setting('mysm-settings-group', 'mysm-oauth-cli');
+			register_setting('mysm-settings-group', 'mysm-oauth-secr');
+			register_setting('mysm-settings-group', 'mysm-orientation');
+			register_setting('mysm-settings-group', 'mysm-width');
+			register_setting('mysm-settings-group2', 'mysm-reset');
 		}
 		
 		function OnUninstall()
 		{
 			delete_option('mysm-oauth-cli');
 			delete_option('mysm-oauth-secr');
-			delete_option('mysm-template');
-			delete_option('mysm-multimedia');
-			delete_option('mysm-share');
+			delete_option('mysm-orientation');
+			delete_option('mysm-width');
 			UnlinkAllPosts();
 		}
 		
 		function EnableJScript() {
-			wp_register_script( 'mysmscript', plugins_url('/js/mysmscript.js', __FILE__));
-			wp_enqueue_script( 'mysmscript' );
+			wp_register_script('mysmscript', plugins_url('/js/mysmscript.js', __FILE__));
+			wp_enqueue_script('mysmscript');
 		}    
 		
 		function MySmWarning()
@@ -99,18 +80,13 @@
 				echo "<div id='mysm-warning' class='updated fade'><p><strong>".__('WARNING: ')."</strong> ".sprintf(__('You must <a href="%1$s">enter your MySmark API key</a> for it to work.'), "admin.php?page=mysmark/MySm_AdminPage.php")."</p></div>";
 		}
 		
-		// Not yet needed
-		function OnActivate()
-		{
-		}
-		
-		function MySmPOST($ID, $title, $url, $singleVote = false, $protected = false, $descr = 'WP-post', $category = 'WordPressSmark')
+		function MySmPOST($ID, $title, $url)
 		{
 			$client_id = get_option('mysm-oauth-cli');
 			$client_secret = get_option('mysm-oauth-secr');
 			
 			if (!$client_id || !$client_secret)
-				throw new MySmarkException("MySmark API must be set.");
+				throw new Exception("MySmark API must be set.");
 			
 			try
 			{
@@ -119,13 +95,13 @@
 				$mySmResult = null;
 				$mySmArr = array(
 					"name" => $title,
-					"description" => $descr,
+					"description" => "WP-post #".$ID,
 					"url" => $url,
 					"image" => null,
-					"singleVote" => $singleVote,
-					"protected" => $protected,
+					"singleVote" => false,
+					"protected" => false,
 					"expires" => null,
-					"category" => $category,
+					"category" => "WordPressSmark",
 					"external_ref" => "POST#".$ID,
 					"json" => null,
 					"location" => null,
@@ -147,6 +123,12 @@
 				global $websrc;
 				
 				$mysmID = get_option("MySmPostID".$post->ID);
+				$checkDigit = strval($mysmID);
+				
+				// No widget for this post
+				if ($checkDigit[0] == 'd')
+					return $content;
+				
 				try
 				{
 					if (empty($mysmID))
@@ -209,7 +191,7 @@
 						$content .= '<p style="text-align:center;"><iframe frameborder="0" style="overflow-x: hidden; overflow-y: hidden;" id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1&wh='.$width.'&pos='.$orientation.'&exturl='.$wpurl.'" height="'.($height+10).'" width="'.($width+5).'"></iframe></p>';
 					}
 				}
-				catch (MySmarkException $e)
+				catch (Exception $e)
 				{
 					$content .= "<strong>".$e->getMessage()."</strong>";
 				}
@@ -217,18 +199,12 @@
 			return $content;
 		}
 		
-		function AddMySmReference($post_ID)
-		{
-			global $post;
-			
-			try
-			{
-				//$singlevote = get_option('mysm-singlevote');
-				$refID = $this->MySmPOST($post->ID, $post->post_title, $post->guid, !empty($singlevote));
-				add_option("MySmPostID".$post_ID, $refID);
+		function AddMySmReference($post) {			
+			try {
+				$refID = $this->MySmPOST($post->ID, $post->post_title, $post->guid);
+				add_option("MySmPostID".$post->ID, $refID);
 			}
-			catch (MySmarkException $e)
-			{
+			catch (Exception $e) {
 				echo "<strong>".$e->getMessage()."</strong>";
 			}
 		}
@@ -245,6 +221,81 @@
 			$sql = $wpdb->prepare('DELETE FROM `wp_options` WHERE option_name LIKE "MySmPostID%%";');
 			$wpdb->query($sql);
 			$wpdb->flush();
+		}
+		
+		// Add the Meta Box to the system
+		function AddMetaBox() {
+			add_meta_box( 
+			'mysmark_metacheckbox',
+			__('MySmark Plugin', 'MySmark_text'),
+			array(&$this, 'MetaBoxContent'),
+			'post',
+			'side',
+			'high'
+			);
+		}
+		
+		// Define the content of the Meta Box
+		function MetaBoxContent() {
+			global $post;
+			
+			// Verification
+			wp_nonce_field( plugin_basename( __FILE__ ), 'mysmark_nonce');
+
+			echo '<p>';
+			_e('Do you want to add the MySmark Widget/Button to this post?', 'MySmark_text');
+			echo '</p>';
+			echo '<input type="hidden" name="mysmark_checkbox" value="0" />';
+			
+			// Initialize the checkbox
+			$checked = "CHECKED";
+			$choiceString = strval(get_option("MySmPostID".$post->ID));
+			if (strcmp($choiceString[0], 'd') == 0)
+				$checked = "";
+			
+			echo '<input type="checkbox" id="mysmark_checkbox" name="mysmark_checkbox" value="1" '.$checked.'/>';
+			echo '&nbsp;<label for="mysmark_checkbox">';
+			_e('MySmark', 'MySmark_text');
+			echo '</label> ';
+		}
+		
+		/*
+		 * Save the user choice on the meta box
+		 *
+		 * Don't get confused by $post_id and post_ID,
+		 * the first is the ID of the post revision, the
+		 * second is the actual post ID.
+		 */
+		function MetaBoxSave($post_id) {
+			// Don't execute this if the event is fired by the autosave
+			if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) 
+			return;
+
+			// Verify nonce
+			if (!wp_verify_nonce($_POST['mysmark_nonce'], plugin_basename( __FILE__ )))
+			return;
+
+			// Check permissions
+			if ('post' == $_POST['post_type']) {
+				if (!current_user_can('edit_post', $post_id))
+				return;
+			}
+			
+			global $post;
+			$ID = $_POST['post_ID'];
+			$choice = $_POST['mysmark_checkbox'];
+			
+			if (!get_option("MySmPostID".$ID))
+				$this->AddMySmReference($post);
+			
+			$postOption = get_option("MySmPostID".$ID);
+			$postOptionString = strval($postOption);
+			
+			// Activate / Deactivate the widget
+			if ($choice == 1 && strcmp($postOptionString[0], 'd') == 0)
+				update_option("MySmPostID".$ID, substr($postOptionString, 1));
+			else if ($choice == 0 && strcmp($postOptionString[0], 'd') != 0)
+				update_option("MySmPostID".$ID, 'd'.$postOptionString);
 		}
 	}
 ?>
