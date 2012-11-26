@@ -1,10 +1,10 @@
 === MySmark Plugin ===
 Tags:  mysmark, emotion, mood, sentiment, feedback, comment, rating, feelings
-Contributors: m1rcu2
+Contributors: m1rcu2, giacomo-persichini
 Requires at least: 3.0
-Tested up to: 3.4.1
-Stable tag: 1.0.5.1
-License: GPLv2 or later (http://www.gnu.org/licenses/gpl-2.0.html) 
+Tested up to: 3.4.2
+Stable tag: 1.0.7
+License: GPLv2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
 
 Upgrade comments and sharing of your blog and engage your visitors with emotional tagging via MySmark.
 
@@ -43,7 +43,7 @@ Make sure you visit our website [MySmark](https://www.mysmark.com/ "MySmark")
 
 = Why are the comments not displayed properly ? =
 If you see any problems with your comments, please double check if the width of the widget in the **MySmark Plugin Control Panel** is set properly. 
-We **strongly** recommend that the width you set should be **larger than 460px**. Play with it to adjust to your needs. 
+We **strongly** recommend that the width you set should be **larger than 460px**. Play with it to adjust to your needs.
 
 = How can I personalise the widget ? =
 Every user/visitor has its own widget that can be personalised in the [MySmark.com](https://www.mysmark.com/ "MySmark") in the Settings tab. So every time users want to leave a comment, they call their own personalised widget leaving even richer feedback on your posts.
@@ -55,8 +55,21 @@ Every user/visitor has its own widget that can be personalised in the [MySmark.c
 2. Settings in the admin page.
 
 == Changelog ==
+= 1.0.7 =
+* Added: Now it is possible to choose for each post if you want to enable the MySmark widget/button.
+* Added: screenshot-3.png to show the new meta box in the 'New/Edit Post' page.
+* Change: screenshot-1.png, screenshot-2.png, and images in the 'images' folder have been updated with the new Rose.
+
+= 1.0.6.1 =
+* Fixed: Post preview on the home page was not showing correctly.
+
+= 1.0.6 =
+* Added: The new MySmark Button is available to use as a template in the plug-in Control Panel.
+* Change: screenshot-2.png with the new Control Panel.
+
 = 1.0.5.1 =
 * Edited the README.txt file.
+
 = 1.0.5 =
 * Fixed: User is able to see in the user mysmark.com account stats for every posts.
 * Edited the README.txt file.
