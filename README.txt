@@ -53,6 +53,7 @@ Every user/visitor has its own widget that can be personalised in the [MySmark.c
 == Screenshots ==
 1. The plugin: E-rose and comment list.
 2. Settings in the admin page.
+3. The Meta Box in the New/Edit Post.
 
 == Changelog ==
 = 1.0.7 =
