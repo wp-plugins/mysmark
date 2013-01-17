@@ -1,7 +1,7 @@
 <?php
 	/*
 	Plugin Name: MySmark
-	Plugin URI: http://mysmark.com
+	Plugin URI: http://wordpress.org/extend/plugins/mysmark/
 	Description: A MySmark Plug-In for WordPress CMS
 	Version: 1.0.7
 	Author: M1rcu2
