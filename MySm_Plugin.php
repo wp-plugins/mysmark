@@ -3,7 +3,7 @@
 	Plugin Name: MySmark
 	Plugin URI: http://wordpress.org/extend/plugins/mysmark/
 	Description: A MySmark Plug-In for WordPress CMS
-	Version: 1.0.7
+	Version: 1.0.8
 	Author: M1rcu2
 	Author URI: http://b-smark.com/mirco
 	License: GPL2
