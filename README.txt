@@ -2,7 +2,7 @@
 Tags:  mysmark, emotion, mood, sentiment, feedback, comment, rating, feelings
 Contributors: m1rcu2, giacomo-persichini
 Requires at least: 3.0
-Tested up to: 3.4.2
+Tested up to: 3.9
 Stable tag: 1.0.8
 License: GPLv2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
 
