@@ -32,7 +32,9 @@ Or watch a movie that explains step-by-step how to install the plugin: [MySmark 
 
 **Make your Smark now!**
 
-**Note**: The plugin will add a widget to every single post you create. You can access the statistics for your posts through [MySmark homepage](https://www.mysmark.com/ "MySmark") in the Tools tab. You should see a list of objects with a reference tp *WP-post* and titles being active links to your posts. At the bottom of each item on the list you should see **Get stats!** link - this link should bring you to the page where you can see general statistics for that particular post.
+**Note**: The plugin will add a widget to every single post you create. You can access the statistics for your posts through [MySmark homepage](https://www.mysmark.com/ "MySmark") in the Tools tab. You should see a list of objects with a reference to *WP-post* and titles being active links to your posts. At the bottom of each item on the list you should see **Get stats!** link - this link should bring you to the page where you can see general statistics for that particular post.
+
+**About Facebook sharing**: with MySmark, visitors will be able to smark your posts and share them on social networks. If you want to make sure the thumbnail on their Facebook shared objects is the one you are expecting, try installing a plug-in to set the Open Graph tag *og:image* for each of your posts.
 
 == Frequently Asked Questions ==
 
