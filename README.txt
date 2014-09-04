@@ -1,8 +1,8 @@
 === MySmark Plugin ===
 Tags:  mysmark, emotion, mood, sentiment, feedback, comment, rating, feelings
-Contributors: m1rcu2, giacomo-persichini
+Contributors: m1rcu2, Giacomo Persichini
 Requires at least: 3.0
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: 1.0.8
 License: GPLv2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
 
