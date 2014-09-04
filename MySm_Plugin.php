@@ -1,11 +1,11 @@
 <?php
 	/*
 	Plugin Name: MySmark
-	Plugin URI: http://wordpress.org/extend/plugins/mysmark/
+	Plugin URI: http://wordpress.org/plugins/mysmark/
 	Description: A MySmark Plug-In for WordPress CMS
 	Version: 1.0.8
-	Author: M1rcu2
-	Author URI: http://b-smark.com/mirco
+	Author: M1rcu2, Giacomo Persichini
+	Author URI: https://wordpress.org/plugins/mysmark/
 	License: GPL2
 
 	Copyright 2012  B-Sm@rk  (email : besmark@b-smark.com)
