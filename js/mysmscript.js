@@ -1,4 +1,4 @@
-if (document.addEventListener)
+if (document.addEventListener) {
 	window.addEventListener( "message", function (e) {
 		if(e.origin !== "https://www.mysmark.com")
 			return;
@@ -6,7 +6,7 @@ if (document.addEventListener)
 		document.getElementById('mySmarkFrame').style.height = (parseInt(size[0])+20)+"px";
 		document.getElementById('mySmarkFrame').style.width = (parseInt(size[1])+20)+"px";
 	}, false);
-else
+} else {
 	window.attachEvent( "message", function (e) {
 		if(!e.origin || e.origin !== "https://www.mysmark.com")
 			return;
@@ -14,3 +14,10 @@ else
 		document.getElementById('mySmarkFrame').style.height = (parseInt(size[0])+20)+"px";
 		document.getElementById('mySmarkFrame').style.width = (parseInt(size[1])+20)+"px";
 	});
+}
+
+function mySmarkEnableAutoresize(e) {
+  iFrameResize({
+    checkOrigin: false
+  }, '#' + e.id);
+}

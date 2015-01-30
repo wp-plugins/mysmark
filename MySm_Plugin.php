@@ -3,7 +3,7 @@
 	Plugin Name: MySmark
 	Plugin URI: http://wordpress.org/plugins/mysmark/
 	Description: A MySmark Plug-In for WordPress CMS
-	Version: 1.0.8
+	Version: 1.0.9
 	Author: M1rcu2, Giacomo Persichini
 	Author URI: https://wordpress.org/plugins/mysmark/
 	License: GPL2
@@ -57,6 +57,8 @@
 			register_setting('mysm-settings-group', 'mysm-oauth-secr');
 			register_setting('mysm-settings-group', 'mysm-orientation');
 			register_setting('mysm-settings-group', 'mysm-width');
+			register_setting('mysm-settings-group', 'mysm-height');
+			register_setting('mysm-settings-group', 'mysm-alignment');
 			register_setting('mysm-settings-group2', 'mysm-reset');
 		}
 		
@@ -66,12 +68,18 @@
 			delete_option('mysm-oauth-secr');
 			delete_option('mysm-orientation');
 			delete_option('mysm-width');
+			delete_option('mysm-height');
+			delete_option('mysm-alignment');
 			UnlinkAllPosts();
 		}
 		
 		function EnableJScript() {
-			wp_register_script('mysmscript', plugins_url('/js/mysmscript.js', __FILE__));
+			wp_register_script('iframe-resizer', plugins_url('/js/iframeResizer.min.js', __FILE__));
+			wp_enqueue_script('iframe-resizer');
+			wp_register_script('mysmscript', plugins_url('/js/mysmscript.js', __FILE__), array('iframe-resizer'));
 			wp_enqueue_script('mysmscript');
+			wp_register_style('mysmark-css', plugins_url('/css/mysmark.css', __FILE__));
+			wp_enqueue_style('mysmark-css');
 		}    
 		
 		function MySmWarning()
@@ -95,7 +103,6 @@
 				$mySmResult = null;
 				$mySmArr = array(
 					"name" => $title,
-					"description" => "WP-post #".$ID,
 					"url" => $url,
 					"image" => null,
 					"singleVote" => false,
@@ -136,40 +143,38 @@
 						$mysmID = $this->MySmPOST($post->ID, $post->post_title, $post->guid);
 						update_option("MySmPostID".$post->ID, $mysmID);
 					}
-					$orientation = 't';
-					$width = '230';
-					$height = '660';
 					
+					$orientation = 't';
+					$width = get_option('mysm-width');
+					$height = get_option('mysm-height');
+					$alignment = get_option('mysm-alignment');
+
 					switch (get_option('mysm-orientation'))
 					{
 						case 0:
 							{
 								$orientation = 'l';
-								if (get_option('mysm-width'))
-									$width = get_option('mysm-width');
-								else
-									$width = 460;
-								$height = '330';
 								break;
 							}
 						case 1:
 							{
 								$orientation = 't';
-								if (get_option('mysm-width'))
-									$width = get_option('mysm-width');
-								else
+
+								if ($width < 230) {
 									$width = 230;
-								$height = '330';
+									update_option('mysm-width', $width);
+								}
+
 								break;
 							}
 						case 2:
 							{
 								$orientation = 'r';
-								if (get_option('mysm-width'))
-									$width = get_option('mysm-width');
-								else
-									$width = 460;
-								$height = '330';
+
+								if ($width < 690) {
+									$width = 690;
+								}
+								
 								break;
 							}
 						case 3:
@@ -182,13 +187,16 @@
 					}
 					
 					if (strcmp($orientation, 'b') == 0) {
-						$script = '<script type="text/javascript" src="https://www.mysmark.com/js/Embedder.js"></script>';
-						$content .= '<p style="text-align:center;"><button id="MYSMARK_ID_'.$mysmID.'" class="mysmark_embed" title="Click here to share your opinion!" style="height: 48px; width: 134px; background-image: url(https://www.mysmark.com/embed-button.php?id='.$mysmID.'); background-color: transparent; border: 0px none; cursor: pointer; background-position: 0px 0px; background-repeat: no-repeat no-repeat;"></button></p>';
+						$script = '<script type="text/javascript" src="'.$websrc.'js/Embedder.js"></script>';
+						$content .= '<p style="text-align:center;"><button id="MYSMARK_ID_'.$mysmID.'" class="mysmark_embed" title="Click here to share your opinion!" style="height: 48px; width: 134px; background-image: url('.$websrc.'embed-button.php?id='.$mysmID.'); background-color: transparent; border: 0px none; cursor: pointer; background-position: 0px 0px; background-repeat: no-repeat no-repeat;"></button></p>';
 						$content = $script . $content;
 					}
 					else {
 						$wpurl = (($_SERVER['HTTPS'] != "on") ? "http://" : "https://").$_SERVER['HTTP_HOST'];
-						$content .= '<p style="text-align:center;"><iframe frameborder="0" style="overflow-x: hidden; overflow-y: hidden;" id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1&wh='.$width.'&pos='.$orientation.'&exturl='.$wpurl.'" height="'.($height+10).'" width="'.($width+5).'"></iframe></p>';
+						$content .= '<div class="mysmark-widget orientation-'.$orientation.' alignment-'.$alignment.'" style="'.($width ? 'max-width: ' . $width . 'px;' : '').' '.($height ? 'max-height: ' . $height . 'px;' : '').'">';
+						$content .= '<iframe frameborder="0" id="mySmarkFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&exturl='.$wpurl.'" onload="mySmarkEnableAutoresize(this);"></iframe>';
+						$content .= '<iframe frameborder="0" scrolling="no" id="mySmarkCommentsFrame" src="'.$websrc.'embed.php?id='.$mysmID.'&comm=1&widget=0" width="100%" onload="mySmarkEnableAutoresize(this);"></iframe>';
+						$content .= '</div><div style="clear: both;"></div>';
 					}
 				}
 				catch (Exception $e)

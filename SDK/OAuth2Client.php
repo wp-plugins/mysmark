@@ -1,4 +1,8 @@
 <?php
+/**
+  * Library released under MIT License. Original code:
+  * https://code.google.com/p/oauth2-php/ 
+ **/
 
 /**
  * The default Cache Lifetime (in seconds).
@@ -10,14 +14,6 @@ define("OAUTH2_DEFAULT_EXPIRES_IN", 3600);
  */
 define("OAUTH2_DEFAULT_BASE_DOMAIN", '');
 
-/**
- * OAuth2.0 draft v10 client-side implementation.
- *
- * @author Originally written by Naitik Shah <naitik@facebook.com>.
- * @author Update to draft v10 by Edison Wong <hswong3i@pantarei-design.com>.
- *
- * @sa <a href="https://github.com/facebook/php-sdk">Facebook PHP SDK</a>.
- */
 abstract class OAuth2Client {
 
   /**
@@ -247,7 +243,8 @@ abstract class OAuth2Client {
     CURLOPT_TIMEOUT        => 60,
     CURLOPT_USERAGENT      => 'oauth2-draft-v10',
     CURLOPT_HTTPHEADER     => array("Accept: application/json"),
-    CURLOPT_SSL_VERIFYPEER => false,
+    CURLOPT_SSL_VERIFYHOST => 2,
+    CURLOPT_SSL_VERIFYPEER => true,
   );
 
   /**
@@ -457,6 +454,7 @@ abstract class OAuth2Client {
       $ch = curl_init();
 
     $opts = self::$CURL_OPTS;
+    $opts[CURLOPT_CAINFO] = dirname(__FILE__).'/ca-bundle.pem';
     if ($params) {
         if( $method == 'GET' )
         	$path .= '?' . http_build_query($params, NULL, '&');
@@ -480,13 +478,6 @@ abstract class OAuth2Client {
 
     curl_setopt_array($ch, $opts);
     $result = curl_exec($ch);
-
-    if (curl_errno($ch) == 60) { // CURLE_SSL_CACERT
-      error_log('Invalid or no certificate authority found, using bundled information');
-      curl_setopt($ch, CURLOPT_CAINFO,
-                  dirname(__FILE__) . '/fb_ca_chain_bundle.crt');
-      $result = curl_exec($ch);
-    }
 
     if ($result === FALSE) {
       $e = new OAuth2Exception(array(
