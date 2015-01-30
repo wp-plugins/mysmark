@@ -1,0 +1,93 @@
+.mysmark-widget {
+  overflow-y: auto;
+}
+
+.mysmark-widget.alignment-center {
+  margin: 0 auto;
+}
+
+.mysmark-widget.alignment-left {
+  float: left;
+}
+
+.mysmark-widget.alignment-right {
+  float: right;
+}
+
+.mysmark-widget.orientation-t {
+  text-align: center;
+}
+
+/* TOP ALIGNMENT */
+.mysmark-widget.orientation-t #mySmarkFrame {
+  display: block;
+  width: 100%;
+  height: 325px;
+  margin: 0 auto 10px auto;
+}
+
+.mysmark-widget.orientation-t #mySmarkCommentsFrame {
+  display: block;
+  width: 100%;
+}
+
+/* LEFT ALIGNMENT */
+.mysmark-widget.orientation-l #mySmarkFrame {
+  float: left;
+  width: 100%;
+  margin-right: -260px;
+}
+
+.mysmark-widget.orientation-l #mySmarkCommentsFrame {
+  float: left;
+  margin-left: 260px;
+  width: 450px;
+}
+
+/* RIGHT ALIGNMENT */
+.mysmark-widget.orientation-r #mySmarkFrame {
+  float: right;
+  width: 100%;
+  margin-left: -260px;
+}
+
+.mysmark-widget.orientation-r #mySmarkCommentsFrame {
+  float: right;
+  margin-right: 260px;
+  width: 450px;
+}
+
+@media (max-width: 710px) {
+  .mysmark-widget.orientation-l,
+  .mysmark-widget.orientation-r {
+    text-align: center;
+  }
+
+  /* LEFT ALIGNMENT */
+  .mysmark-widget.orientation-l #mySmarkFrame {
+    float: none;
+    width: 250px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .mysmark-widget.orientation-l #mySmarkCommentsFrame {
+    float: none;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  /* RIGHT ALIGNMENT */
+  .mysmark-widget.orientation-r #mySmarkFrame {
+    float: none;
+    width: 250px;
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+
+  .mysmark-widget.orientation-r #mySmarkCommentsFrame {
+    float: none;
+    margin-right: 0;
+    width: 100%;
+  }
+}
